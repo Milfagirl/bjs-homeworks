@@ -28,18 +28,17 @@ function calculateTotalMortgage(percent, contribution, amount, date) { //Кре�
     percentForMonth = (percent / 12)/100;
     payment = bodyCredit * (percentForMonth + percentForMonth / ((Math.pow((1 + percentForMonth),term) - 1)));
     totalAmount = (payment * term).toFixed(2);
-    return totalAmount;
+    return Number(totalAmount);
 }
 
 function getGreeting(name) {
-    let greeting;  //приветствие
-    name = name.trim();
-    if (!String(name) || name.indexOf('undefined') >=0 || (name.indexOf('null')>= 0 )) {
-    name = "Аноним";
-    console.log(name);
+    
+    let newname = name.trim();
+    // name = name.trim();
+    if (String(newname) == "" || newname.indexOf('undefined') >=0 || (newname.indexOf('null')>= 0 )) {
+    newname = "Аноним";
+    console.log(newname);
     } 
 
-    greeting = (`Привет, мир! Меня зовут ` + name);
-
-    return greeting;
+    return (`Привет, мир! Меня зовут ${newname}`);
 }
