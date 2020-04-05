@@ -6,18 +6,15 @@ function calculateTotalMortgage(percent, contribution, amount, date) { //Кре�
     let term; // срок кредита
     let percentForMonth; //процентная ставка(месяц)
     let totalAmount; // общая сумма кредита
-    if (Number(percent)|| percent == 0);  //проверка корректности исходных параметров
-    else {
+    if (Number.isNaN(+percent)){  //проверка корректности исходных параметров
         console.log("Параметр <Процентная ставка> содержит неправильное значение: " + percent);
         return;
     }
-    if (Number(contribution) || contribution ==0);
-    else {
+    if (Number.isNaN(+contribution)){;
         console.log(`Параметр <Первоначальный взнос> содержит неправильное значение: ` + contribution);
         return;
     }
-    if (Number(amount) || amount == 0);
-    else {
+    if (Number.isNaN(+amount)){
         console.log(`Параметр <Сумма кредита> содержит неправильное значение: ` + amount);
         return;
     }
@@ -32,9 +29,9 @@ function calculateTotalMortgage(percent, contribution, amount, date) { //Кре�
 }
 
 function getGreeting(name) {
+    // return (`Привет, мир! Меня зовут ${name || "Аноним"}`);
     
     let newname = name.trim();
-    // name = name.trim();
     if (String(newname) == "" || newname.indexOf('undefined') >=0 || (newname.indexOf('null')>= 0 )) {
     newname = "Аноним";
     console.log(newname);
