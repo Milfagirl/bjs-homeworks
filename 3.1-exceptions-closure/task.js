@@ -43,14 +43,14 @@ const getTriangle = (a, b, c) => {
     try {
         return new Triangle(a, b, c);
     } catch  {
-        class Name extends Triangle {
+        class CheckTriangle  {
             getPerimeter() {
-                console.log("Ошибка! Неправильный треугольник");
-            };
+                return ("Ошибка! Неправильный треугольник");
+            }
             getArea() {
-                console.log("Ошибка! Неправильный треугольник");
-            };
+                return("Ошибка! Неправильный треугольник");
+            }
         }
-        return new Name(a, b, c);
+        return new CheckTriangle;
     }
 }
