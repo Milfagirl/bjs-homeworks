@@ -25,10 +25,10 @@ class Triangle {
 
         if (((a + b) < c) || ((a + c) < b) || ((b + c) < a)) {
             const e = new Error("Треугольник с такими сторонами не существует");
-            throw e; 
+            throw e;
         }
     }
-   
+
     getPerimeter() {
         return this.a + this.b + this.c;
     }
@@ -42,13 +42,13 @@ class Triangle {
 const getTriangle = (a, b, c) => {
     try {
         return new Triangle(a, b, c);
-    } catch  {
-        class CheckTriangle  {
+    } catch {
+        class CheckTriangle {
             getPerimeter() {
                 return ("Ошибка! Неправильный треугольник");
             }
             getArea() {
-                return("Ошибка! Неправильный треугольник");
+                return ("Ошибка! Неправильный треугольник");
             }
         }
         return new CheckTriangle;
