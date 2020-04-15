@@ -12,16 +12,12 @@ function sum(...args) {
         return sum += +arg;
     }, 0);
 }
-const compareArrays = (arr1, arr2) => {
 
-    function getArr(currentValue, index, array) {
-        return (currentValue === arr2[index])
-    }
+const compareArrays = (arr1, arr2) => {
     if (arr1.length === arr2.length) {
 
-        return arr1.every(getArr);
+        return arr1.every((currentValue, index) => currentValue === arr2[index]);
     } else return false;
-
 }
 
 console.log(compareArrays([8, 9], [6])); // false, разные значения
@@ -32,30 +28,32 @@ console.log(compareArrays([8, 1, 2], [8, 1, 2])); // true
 
 function memorize(fn, limit) {
     let memory = [];
-    let sumresult;
-    for (let i in memory) {
-        if (compareArrays([...rest], memory[i].args)) { //сравниваем новые параметры с исходными
-            return memory[i].result
-        }
-    }
-    memory.push({ // если параметры новые, добавляем в мемори 
-        args: [...rest],
-        result: fn(...rest)
-    });
-    if (memory.length > limit) { //очищаем 
-        memory.splice(0, 1);
-    }
-    console.log(memory);
-    return fn(...rest)
-}
+    return function (...rest) {
 
-const mSum = memorize(sum, 5);
+        const elem = memory.find(element => compareArrays(element.args, [...rest]));
+        if (elem) {
+            return elem.result;
+        }
+        const Result =  fn(...rest);
+        memory.push({ // если параметры новые, добавляем в мемори 
+            args: [...rest],
+            result: Result
+        });
+        if (memory.length > limit) { //очищаем 
+            memory.splice(0, 1);
+        }
+        console.log(memory);
+        return Result
+    }
+}
+const mSum = memorize(sum, 3);
 // console.log(sum(3, 4));
 console.log(mSum(3, 4));
 console.log(mSum(3, 4));
 console.log(mSum(3, 4));
 console.log(mSum(3, 6));
 console.log(mSum(3, 4));
+console.log(mSum(3, 6));
 
 function testCase(testFunction, valueTime) {
     let arr = [
@@ -70,47 +68,8 @@ function testCase(testFunction, valueTime) {
         arr.forEach(testFunction) * i;
     }
     console.timeEnd(valueTime);
+    return
 }
 testCase(sum);
 testCase(mSum);
 
-// const compareArrays = (arr1, arr2) => {
-//     if (arr1.length === arr2.length) {
-
-//         return arr1.every(let getArr = (currentValue, index) => {currentValue === arr2[index]});
-//     } else return false;
-
-
-// }
-
-
-// function memorize(fn, limit) {
-//     let memory = [];
-//     return function (a, b, ...rest) {
-//         if (memory.length < 1) { //Заполянем массив мемори исходными данными
-//             memory.push({
-//                 args: [a, b, ...rest],
-//                 result: fn(a, b, ...rest)
-//             });
-//             // console.log(memory)
-//             return fn(a, b, ...rest) //выводим результат вычисления
-//         } else {
-//             for (let i in memory) {
-//                 if (compareArrays([a, b, ...rest], memory[i].args)) { //сравниваем новые параметры с исходными
-//                     // console.log('repeat ' + memory[i].result);
-//                     return memory[i].result
-//                 }
-//             }
-//             memory.push({ // если параметры новые, добавляем в мемори 
-//                 args: [a, b, ...rest],
-//                 result: fn(a, b, ...rest)
-//             });
-//             if (memory.length > limit) { //очищаем 
-//                 memory.splice(0, 1);
-//                 console.log(memory.slice(0, 1));
-//             }
-//             console.log(memory);
-//             return fn(a, b, ...rest)
-//         }
-//     }
-// }
